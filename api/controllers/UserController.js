@@ -13,8 +13,7 @@ module.exports = {
    */
   find: async function (req, res) {
     const data = req.params || req.body;
-    const user  = await User.findOrCreate({email: data.email},{...data}).catch(res.serverError);
-    console.log("user",user);
+    const user  = await User.findOrCreate({where:{email: data.email}},{...data}).catch(res.serverError);
     
     return res.json(user);
   },
@@ -26,10 +25,8 @@ module.exports = {
     console.log('came to create');
 
     const data = req.body;
-    console.log('data',data);
-    const user  = await User.findOrCreate({email: data.email , data:data}).catch(res.serverError);
-    console.log("user", user);
-    
+    const user  = await User.findOrCreate({where:{userID: data.userID}} ,data).catch(res.serverError);
+        
     return res.json(user);
 
   },
