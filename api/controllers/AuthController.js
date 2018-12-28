@@ -12,6 +12,7 @@ module.exports = {
    * `AuthController.find()`
    */
   find: async function (req, res) {
+    confirm.log(req.body);
     return res.json({
       todo: 'find() is not implemented yet!'
     });
@@ -21,6 +22,7 @@ module.exports = {
    * `AuthController.create()`
    */
   create: async function (req, res) {
+    confirm.log(req.body);
     return res.json({
       todo: 'create() is not implemented yet!'
     });
