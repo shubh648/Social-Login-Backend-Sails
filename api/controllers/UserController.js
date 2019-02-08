@@ -4,7 +4,7 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-
+var jwt = require('jsonwebtoken');
 module.exports = {
   
 
@@ -12,10 +12,13 @@ module.exports = {
    * `UserController.find()`
    */
   find: async function (req, res) {
-    const data = req.params || req.body;
-    const user  = await User.findOrCreate({where:{userID: data.userID}},{...data}).catch(res.serverError);
+    console.log(req.cookies);
+    res.cookie("token", "mytoken");
+    res.json({test:true});        
+    // const data = req.params || req.body;
+    // const user  = await User.findOrCreate({where:{userID: data.userID}},{...data}).catch(res.serverError);
     
-    return res.json(user);
+    // return res.json(user);
   },
 
   /**
@@ -23,14 +26,22 @@ module.exports = {
    */
   create: async function (req, res) {
     console.log('came to create');
-
-    const data = req.body;
-    console.log("Data ", data);
+    console.log(JSON.stringify(req.cookies));
+    console.log(JSON.stringify(req.signedCookies));
     
-    const user  = await User.findOrCreate({where:{userID: data.userID}} ,data).catch(res.serverError);
-        console.log("user ", user);
-        
-    return res.json(user);
+
+    // const data = req.body;
+    
+    // const user  = await User.findOrCreate({where:{userID: data.userID}} ,data).catch(res.serverError);
+            
+    // const token = jwt.sign({id:user.id} , 'secretdare');
+
+    res.cookie("token", "mytoken");
+    res.json({test:true});    
+    // return res.json({
+    //   user:user,
+    //   token: token
+    // });
 
   },
 
